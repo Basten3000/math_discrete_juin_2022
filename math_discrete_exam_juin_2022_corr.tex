@@ -1,0 +1,336 @@
+\documentclass[A4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{diagbox}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{listings} %code highlighter
+\usepackage{color} %use color
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[french]{babel}
+\usepackage{comment}
+
+
+\geometry{
+ a4paper,
+ total={150mm,240mm},
+ left=20mm,
+ top=20mm,
+ right=20mm
+ }
+
+
+\title{Mathématiques Discrètes : Examen de Juin 2022}
+\author{Marco Saerens, retranscrit par Doeraene Anthony}
+\date{June 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Logique}
+\begin{enumerate}
+    \item Soit la formule $p\Rightarrow (q\Rightarrow (p\land q))$. 
+    \begin{enumerate}
+        \item Cette formule est-elle une tautologie ou une contradiction? Montrez-le via une table de vérité
+        
+        \begin{center}
+            \begin{tabular}{cc|ccc}
+             $p$ & $q$ & $p \land q$ & $q\Rightarrow (p\land q)$ & $p\Rightarrow (q\Rightarrow (p\land q))$ \\\hline
+              T & T & T & T & T\\
+              T & F & F & T & T\\
+              F & T & F & F & T\\
+              F & F & F & T & T
+        \end{tabular}
+        \end{center}
+
+        \item Montrez-le via un raisonnement formel
+        \begin{align*}
+        &p\Rightarrow (q\Rightarrow (p\land q))\\
+        &\equiv p\Rightarrow(\neg q \lor(p\land q)) &&\text{(car } p \Rightarrow q \equiv \neg p \lor q)\\
+        &\equiv p\Rightarrow((\neg q \lor p) \land (\neg q \lor q)) && \text{(Par distributivité)}\\
+        &\equiv p\Rightarrow((\neg q \lor p) \land T)) && \text{(Car } q \lor \neg q \equiv T)\\
+        &\equiv p\Rightarrow(\neg q \lor p) && \text{(Car } p \land T \equiv p)\\
+        &\equiv \neg p \lor (\neg q \lor p) &&\text{(car } p \Rightarrow q \equiv \neg p \lor q)\\
+        &\equiv (\neg p \lor p) \lor \neg q && \text{(Par associativité)}\\
+        &\equiv T \lor \neg q && \text{(Car } q \lor \neg q \equiv T)\\
+        &\equiv T && \text{(Car } T \lor p \equiv T)
+        \end{align*}
+    \end{enumerate}
+    
+    \item Soit les affirmations suivantes en logique des prédicats avec quantificateur
+    \begin{itemize}
+        \item Tous les chiens aiment les êtres humains ou détestent les chats
+        \item Buzzy est un chien
+        \item Buzzy aime les chats
+    \end{itemize}
+    \begin{enumerate}
+        \item Traduisez ces phrases en logique des prédicats.
+        
+        En posant les prédicats suivants:
+        
+        $C(x) \equiv$ "x est un chien"
+        
+        $H(x) \equiv$ "x aime les êtres humains"
+        
+        $D(x) \equiv$ "x déteste les chats"
+        
+        (1) $\forall x (C(x) \Rightarrow (H(x) \lor D(x))$
+        
+        (2) $C(Buzzy)$
+        
+        (3) $\neg D(Buzzy)$
+        \item Quelle est la conclusion que l'on peut tirer à partir de ces affirmations (en logique+en français) ? Utilisez des inférences logiques
+        
+        \begin{align*}
+            \text{(4) }& C(Buzzy) \Rightarrow (H(Buzzy) \lor D(Buzzy) && \text{(Par instantiation universelle)}\\
+            \text{(5) }& H(Buzzy) \lor D(Buzzy) && \text{(Par Modus Ponens avec (2) et (4))}\\
+            \text{(6) }& H(Buzzy) && \text{(Par résolution avec (3) et (5))}\\
+        \end{align*}
+        
+        Nous en concluons donc que Buzzy aime les humains.
+    \end{enumerate}
+    \item Qu'est ce qu'un contre-exemple? Donnez une explication de ce concept ainsi la logique se trouvant derrière celle-ci.
+    
+    \textbf{Voir slides du cours}
+\end{enumerate}
+
+\section{Combinatoire}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item Soit l'expression $(\sqrt{2}x - y )^5$. Donnez la forme développée de ce polynôme.
+        \[
+        \begin{pmatrix}
+        5 \\
+        0
+        \end{pmatrix}
+        (\sqrt{2}x)^5+
+        \begin{pmatrix}
+        5 \\
+        1
+        \end{pmatrix}
+        (\sqrt{2}x)^4(-y)+
+        \begin{pmatrix}
+        5 \\
+        2
+        \end{pmatrix}
+        (\sqrt{2}x)^3(-y)^2+
+        \begin{pmatrix}
+        5 \\
+        3
+        \end{pmatrix}
+        (\sqrt{2}x)^2(-y)^3+
+        \begin{pmatrix}
+        5 \\
+        4
+        \end{pmatrix}
+        (\sqrt{2}x)(-y)^4+
+                \begin{pmatrix}
+        5 \\
+        5
+        \end{pmatrix}
+        (-y)^5
+        \]
+        \[
+        4\sqrt{2}x^5 - 20x^4y + 20\sqrt{2}x^3y^2 - 20x^2y^3 + 5\sqrt{2}xy^4 - y^5
+        \]
+        \item Soit l'expression $(ax + by)^c$. Donnez le coefficient numérique de $x^{c-d}y^d$
+        \[
+        \begin{pmatrix}
+                c\\
+                d
+        \end{pmatrix}
+        a^{c-d}
+        b^d
+        = 
+        \frac{c!}{d!(c-d)!}a^{c-d}
+        b^d
+        \]
+    \end{enumerate}
+    \item Nous possédons un générateur de mot de passe, pouvant utiliser comme caractère les lettres minuscules ainsi que les chiffres (0-9). Les lettres majuscules sont donc inutilisées. En supposant que ce générateur est parfaitement aléatoire (chaque caractère a la même probabilité d'apparaître). Quelle est la probabilité que le mot de passe
+    \begin{enumerate}
+        \item  commence par une lettre \textbf{et} termine par une lettre?
+        
+        Nombre total de mdp = $36^5$
+        
+        Nombre de mdp qui commence par une lettre \textbf{et} termine par une lettre = $26*36*36*36*26$
+        
+        Proba = $\frac{26*36*36*36*26}{36^5} = 0,52160 \approx 52\%$
+        
+        
+        \item  commence par une lettre \textbf{ou} termine par une lettre.
+        
+        (1) Nombre total de mdp = $36^5$
+        
+        (2) Nombre de mdp qui commence par une lettre et fini par un chiffre = $26*36*36*36*10$
+        
+        (3) Nombre de mdp qui commence par un chiffre et fini par une lettre = $10*36*36*36*26$
+        
+        (4) Nombre de mdp qui commence par une lettre \textbf{et} termine par une lettre = $26*36*36*36*26$
+        
+        (2) Nombre de mdp qui commence par une lettre \textbf{ou} termine par une lettre = (2) + (3) + (4)
+        
+        (4 Alternatif)  Nombre de mdp qui commence par une lettre \textbf{ou} termine par une lettre = Nombre total - Mdp commençant par 1 chiffre et finissant par chiffre = (1) - $10*36*36*36*10$
+        
+        Proba = $\frac{(4)}{(1)} = 0,922839 \approx 92\%$
+        
+        \item ne contienne pas deux fois le même caractère?
+        
+        (1) Nombre total de mdp = $36^5$
+        
+        (2) Nombre de mdp sans répétion = P(36,5) = $\frac{36!}{31!}$
+        
+        Proba = $\frac{(2)}{(1)} = 0,7481710 \approx 75\%$
+        
+        \item alterne les chiffres et les lettres (après chaque chiffre, nous avons une lettre et inversément)?
+        
+        (1) Nombre total de mdp = $36^5$
+        
+        (2) Nombre de mdp en alternant (commence par chiffre) = $10*26*10*26*10$
+        
+        (3) Nombre de mdp en alternant (commence par lettre) = $26*10*26*10*26$
+        
+        Proba = $\frac{(3) + (2)}{(1)} = 0,0402472 \approx 4\%$
+        
+        
+    \end{enumerate}
+    
+    \item Vous êtes actionnaire et souhaitez placer des actions parmis 5 entreprises différentes.
+    \begin{enumerate}
+        \item Combien y-a-t il de manière de placer 10 actions parmis ces 5 entreprises?
+        
+        CR(5,10) = C(14, 10) = $\frac{14!}{10!4!}$ = 1001
+        
+        \item Un ami vous recommande de répartir les actions afin de garantir une certaine rentrée. Vous devez donc répartir 20 actions entre 5 entreprises en s'assurant que chaque entreprise contienne au moins 2 actions.
+        
+        \vspace{2ex}
+        Nous fixons 2 actions pour chaque entreprise, donc fixe 5x2 actions = 10 actions. Il reste à répartir 10 actions parmi 5 entreprise
+        
+                CR(5,10) = C(14, 10) = $\frac{14!}{10!4!}$ = 1001
+    \end{enumerate}
+\end{enumerate}
+
+\section{Graphes}
+\begin{enumerate}
+    \item GRAPHE HERE\begin{enumerate}
+    \item Trouvez la longueur du plus court chemin dans le graphe 
+    
+    Longueur = 10
+    
+    
+    \item Donnez le plus court chemin du graphe. Donnez également le plus court chemin entre le noeud a et le noeud h.
+    
+    a-c-e-g-z
+    
+    a-c-e-h
+    
+    \end{enumerate}
+    \item Le graphe possède-t-il un circuit et/ou un chemin eulérien.
+    
+    \vspace{2ex}
+    Le graphe possède un circuit éulérien si et seulement si le degré de chaque noeud est pair, ce qui est le cas. Ce graphe possède aussi un chemin eulérien car il possède un circuit eulérien, qui est un type particulier de chemin.
+    \vspace{2ex}
+    
+    \item Dérivez la formule de calcul du score PageRank à partir de l'interprétation du \textit{random walker}
+    
+    \textbf{Voir slides du cours}
+\end{enumerate}
+
+\section{Equations de récurrence}
+\begin{enumerate}
+    \item Soit l'équation de récurrence homogène 
+    \[ a_n = -3a_{n-1} + 10a_{n-2}\]
+    \begin{enumerate}
+        \item Donnez les racines de l'équation caractéristique associée
+        
+        \begin{align*}
+            &r^n = -3 r^{n-1} +10r^{n-2}\\
+            &r^2 +3r -10 = 0 && \text{(Divise tout par } r^{n-2)}\\
+            &\Delta = b^2 - 4ac = 49
+            \\
+            &r = \frac{-3 \pm 7}{2}\\
+            &r_1 = -5\\
+            &r_2 = 2
+        \end{align*}
+        
+        \item Donnez la solution générale de cette équation
+        
+        \[
+        a_n = \alpha_1 (2)^n + \alpha_2 (-5)^n
+        \]
+        
+        \item Déterminez les coefficients avec les conditions initiales $a_0 = 0$ et $a_1 = 2$
+        \begin{align*}
+        &\begin{cases}
+            a_0 = \alpha_1 + \alpha_2 = 0\\
+            a_1 = 2\alpha_1 -5 \alpha_2= 2\\
+        \end{cases}\\
+        &\begin{cases}
+            \alpha_1 + \alpha_2 = 0\\
+             -7 \alpha_2= 2\\
+        \end{cases}\\
+        &\begin{cases}
+            \alpha_1 = \frac{2}{7}\\
+              \alpha_2= \frac{-2}{7}\\
+        \end{cases}
+        \end{align*}
+        
+        \[
+            a_n = \frac{2}{7} (2)^n - \frac{2}{7} (-5)^n
+        \]
+    \end{enumerate}
+    \item Nous rajoutons désormais un terme de source $F(n) = - 3^n$, arrivant donc à l'équation non-homogène suivant
+    \[ a_n = -3a_{n-1} + 10a_{n-2} - 3^n\]
+    \begin{enumerate}
+        \item Démontrez la forme de la solution à une équation de récurrence non-homogène
+        
+        \textbf{Voir slides 28 du cours des équations de récurrence}
+         \item Donnez la solution générale de cette équation non-homogène
+         
+         Le terme de source est de la forme $s^n$ avec s n'est pas racine du polynôme, nous pouvons donc essayer que solution particulière $a_n^{(p)} = c3^n$
+         
+         \begin{align*}
+             &c3^n = -3c3^{n-1} + 10c3^{n-2} -3^n\\
+             & 9c = -9c + 10c - 9 &&\text{(Divise tout par }3^{n-2})\\
+             & 8c = -9\\
+             & c = \frac{-9}{8}
+         \end{align*}
+         La solution est donc \[
+         a_n = \alpha_1 (2)^n + \alpha_2 (-5)^n - \frac{-9}{8}3^n
+         \]
+         (N.B. : Il est possible de vérifier en fixant des conditions initiales et on vérifie que c'est exact, ce qui a été fait)
+    \end{enumerate}
+\end{enumerate}
+
+\begin{comment}
+Soit l'équation de récurrence linéaire de degré k non-homogène avec terme de source:
+\[
+a_n = a_{n-1} + a_{n-2} + ... + a_{n-k} + F(n)
+\]
+\begin{align*}
+    &F(n) = \alpha_1n^m + \alpha_2n^{m-1} + ... + \alpha_{m}n + \alpha_{m+1} => a_n = \beta_1n^m + \beta_2n^{m-1} + ... + \beta_{m}n + \beta_{m+1}\\
+    &F(n) = s^n \textrm{ et s n'est pas racine} => a_n = cs^n\\
+    &F(n) = s^n \textrm{ et s est racine de multiplicité m} => a_n = cn^ms^n\\
+    &F(n) = (\alpha_1n^m + \alpha_2n^{m-1} + ... + \alpha_{m}n + \alpha_{m+1})s^n \textrm{ et s n'est pas racine} \\ &=> a_n = (\beta_1n^m + \beta_2n^{m-1} + ... + \beta_{m}n + \beta_{m+1})s^n\\
+    &F(n) = (\alpha_1n^m + \alpha_2n^{m-1} + ... + \alpha_{m}n + \alpha_{m+1})s^n \textrm{ et s est racine de multiplicité m} \\ &=> a_n = (\beta_1n^m + \beta_2n^{m-1} + ... + \beta_{m}n + \beta_{m+1})n^ms^n
+\end{align*}
+
+
+\begin{align*}
+a_n &= an1^n\\
+a_n &= 3a_{n-1} - 2a_{n-2} + 1\\
+an1^{n} &= 3a(n-1)1^{n-1} -2a(n-2)1^{n-2} + 1\\
+an &= 3an -3a -2an + 4a +1\\
+0 &= a + 1\\
+a&=-1
+\end{align*}
+
+$\exists! xP(x) \equiv \exists x(P(x)\land \forall y (P(y) \Rightarrow x=y))$
+
+$\neg (p\Rightarrow q) \equiv \neg (\neg p \lor q) \equiv p \land \neg q$
+\end{comment}
+\end{document}

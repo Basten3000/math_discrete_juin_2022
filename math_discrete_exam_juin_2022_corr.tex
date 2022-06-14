@@ -300,9 +300,34 @@
              & c = \frac{-9}{8}
          \end{align*}
          La solution est donc \[
-         a_n = \alpha_1 (2)^n + \alpha_2 (-5)^n - \frac{-9}{8}3^n
+         a_n = \alpha_1 (2)^n + \alpha_2 (-5)^n - \frac{9}{8}3^n
          \]
          (N.B. : Il est possible de vérifier en fixant des conditions initiales et on vérifie que c'est exact, ce qui a été fait)
+         
+         Tentons par exemple 
+        \begin{align*}
+        &\begin{cases}
+            a_0 = \alpha_1 + \alpha_2 - \frac{9}{8}= 0\\
+            a_1 = 2\alpha_1 -5 \alpha_2 - \frac{27}{8}= 2\\
+        \end{cases}\\
+        &\begin{cases}
+             \alpha_1 + \alpha_2 - \frac{9}{8}= 0\\
+              -7 \alpha_2 - \frac{9}{8}= 2\\
+        \end{cases}\\
+        &\begin{cases}
+             \alpha_1 = \frac{11}{7}\\
+              \alpha_2 - = \frac{-25}{56}\\
+        \end{cases}\\
+        \end{align*}
+        
+        \[
+        a_2 = -3a_1 + 10a_0 - 3^2 = -15
+        \]
+        \[
+        a_2 = \frac{11}{7}2^2 - \frac{25}{56}(-5)^2 - \frac{9}{8}3^2 = -15
+        \]
+        
+        Nous arrivons au même résultat, notre équation générale semble donc correcte
     \end{enumerate}
 \end{enumerate}
 
